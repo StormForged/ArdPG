@@ -1,14 +1,14 @@
 #pragma once
+#include "Events.h"
 class NPC{
   public:
     //Constructor
-    NPC(int8_t x, int8_t y, int8_t df, int fag){
-      //npcName = n;
+    NPC(char* n, int8_t x, int8_t y, int8_t df, int8_t id){
+      strcpy(npcName, n);
 	  xPosition = x;
       yPosition = y;
       directionFacing = df;
-	  faggot = fag;
-	  
+	  npcID = id;
     }
     bool CollisionCheck(int8_t playerX, int8_t playerY, int8_t playerDirection){
         if(playerDirection == 0){
@@ -43,10 +43,7 @@ class NPC{
       return 0;
    }
    void CollisionStuff(){
-     sprites.drawPlusMask(96, 0, omaePortrait, 0);
-     arduboy.fillRect(0, 32, 128, 32, BLACK);
-     arduboy.setCursor(0, 32);
-     arduboy.print(faggot); 
+      NPCInteract(npcID);
    }
    int8_t getX(){
     return xPosition;
@@ -60,9 +57,15 @@ class NPC{
    void setDirection(int8_t d){
      directionFacing = d;
    }
+   int8_t getID(){
+    return npcID;
+   }
+   void setX(int8_t x){
+    xPosition = x;
+   }
   private:
-    //char npcName[];
-	int faggot;
+    char npcName[10];
+	int8_t npcID;
     int8_t xPosition;
     int8_t yPosition;
     int8_t directionFacing;
